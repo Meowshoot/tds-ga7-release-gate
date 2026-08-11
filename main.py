@@ -128,7 +128,8 @@ def evaluate_release_gate(payload: Dict[str, Any]) -> Dict[str, Any]:
 
 @app.post("/release-gate")
 @app.post("/")
-async def handle_release_gate(request: Request):
+@app.post("/{path:path}")
+async def handle_release_gate(request: Request, path: str = ""):
     try:
         payload = await request.json()
     except Exception:
