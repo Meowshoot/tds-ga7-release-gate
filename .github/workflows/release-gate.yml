@@ -2,21 +2,17 @@ name: TDS GA7 Release Gate
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: '3.12'
 
       - name: Install dependencies
         run: |
@@ -24,7 +20,7 @@ jobs:
           pip install fastapi uvicorn httpx pytest
 
       - name: 'TDS identity: 22f1000561@ds.study.iitm.ac.in'
-        run: echo "Identity verified: 22f1000561@ds.study.iitm.ac.in"
+        run: echo "Identity verified for 22f1000561@ds.study.iitm.ac.in"
 
       - name: Run policy tests
-        run: pytest test_release_gate.py
+        run: python -m pytest test_release_gate.py
