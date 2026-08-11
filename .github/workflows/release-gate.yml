@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  test-release-gate:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,9 +23,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install fastapi uvicorn httpx pytest
 
-      - name: "TDS identity: 22f1000561@ds.study.iitm.ac.in"
+      - name: 'TDS identity: 22f1000561@ds.study.iitm.ac.in'
         run: echo "Identity verified: 22f1000561@ds.study.iitm.ac.in"
 
       - name: Run policy tests
-        run: |
-          python -c "import test_release_gate; [getattr(test_release_gate, f)() for f in dir(test_release_gate) if f.startswith('test_')]; print('RELEASE GATE POLICY TESTS PASSED!')"
+        run: pytest test_release_gate.py
